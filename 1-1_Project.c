@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <Windows.h>
 
+int AttackAtoB(int iAtkA, int iDefB, int iHpB);
+
 int main(int argc, char* argv[])
 {
 	int iHeroHp = 100, iHeroAtk = 10, iHeroDef = 5;
-	int iMopHp = 100, iMopAtk = 5, iMopDef = 3;
+	int iMopHp = 100, iMopAtk = 8, iMopDef = 3;
 	int iMenu = -1;
 
 	printf("RPG\n");
@@ -51,6 +53,10 @@ int main(int argc, char* argv[])
 								printf("공격(0), 방어(1), 후퇴(기타)\n");
 								scanf_s("%d", &iMenu);
 
+
+
+
+
 								// 데미지 계산식
 								// 방어력 - 공격력
 								int iDamage = 0;
@@ -58,37 +64,15 @@ int main(int argc, char* argv[])
 								if (iMenu == 0) 		// 전투
 								{
 									printf("공격\n");
+									printf("\n");
 
 									// 주인공 1회 공격
-									iDamage = iMopDef - iHeroAtk;
-									if (iDamage < 0)
-									{
-										iMopHp += iDamage;
-
-										printf("주인공이 몬스터를 공격합니다.\n");
-										printf("피해를 %d 입혔습니다.\n", iDamage);
-										printf("남은 체력 : %d\n", iMopHp);
-									}
-									else
-									{
-										printf("공격에 실패 하셨습니다.\n");
-									}
+									printf("주인공이 몬스터를 공격합니다.\n");
+									iMopHp = AttackAtoB(iHeroAtk, iMopDef,iMopHp);
 
 									// 몬스터 1회 반격
-									iDamage = iHeroDef - iMopAtk;
-									if (iDamage < 0)
-									{
-										iHeroHp += iDamage;
-
-										printf("몬스터가 반격 합니다.\n");
-										printf("피해를 %d 입었습니다.\n", iDamage);
-										printf("남은 체력 : %d\n", iHeroHp);
-									}
-									else
-									{
-										printf("몬스터가 공격에 실패 하셨습니다.\n");
-									}
-
+									printf("몬스터가 반격 합니다.\n");
+									iHeroHp = AttackAtoB(iMopAtk, iHeroDef, iHeroHp);
 								}
 								else if (iMenu == 1)		// 방어
 								{
@@ -122,10 +106,12 @@ int main(int argc, char* argv[])
 									}
 									else
 									{
-										printf("몬스터가 공격에 실패 하셨습니다..\n");
+										printf("몬스터가 공격에 실패 하셨습니다.\n");
 									}
 
 									printf("던전으로 이동.\n");
+									Sleep(2000);
+									system("cls");
 									break;
 								}
 								if (iMopHp <= 0)
@@ -160,4 +146,25 @@ int main(int argc, char* argv[])
 
 
 	return 0;
+}
+
+int AttackAtoB(int iAtkA, int iDefB,int iHpB)
+{
+	int iDamage = 0;
+	// 데미지 계산
+	iDamage = iDefB - iAtkA;
+	if (iDamage < 0)
+	{
+		iHpB += iDamage;
+
+		printf("피해를 %d 입혔습니다.\n", iDamage);
+		printf("남은 체력 : %d\n", iHpB);
+		printf("\n");
+	}
+	else
+	{
+		printf("공격에 실패 하셨습니다.\n");
+		printf("\n");
+	}
+	return iHpB;
 }
