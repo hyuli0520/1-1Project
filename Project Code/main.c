@@ -36,13 +36,18 @@ int main(int argc, char* argv[])
 	// console 창 크기 변경
 	system("mode con:cols=90 lines=50");
 
+	printf("\t\t\t\t\t\t\tRPG");
+
+	// 화면 구분해주는 함수
+	DrawScreenLine();
+
 	// 메인 화면
 	gotoXY(30, 15);
 	printf("RPG");
 
 	while (1)
 	{
-;
+
 		// 메뉴 화면
 		gotoXY(50, 31);
 		printf("## 메인 메뉴 ##");
@@ -77,8 +82,10 @@ int main(int argc, char* argv[])
 				if (iMenu == 0)		// 던전 입장
 				{
 					ClearMainScreen();
-					gotoXY(30, 15);
-					printf("던전 입장");
+					//gotoXY(30, 15);
+					//printf("던전 입장");
+					DrawMap();
+
 					while (1)
 					{
 						// 던전 메뉴 화면
@@ -86,10 +93,91 @@ int main(int argc, char* argv[])
 						gotoXY(50, 31);
 						printf("던전 메뉴");
 						gotoXY(50, 32);
-						printf("이동(0)");
+						printf("이동(방향키 사용)");
 						gotoXY(50, 33);
-						printf("나가기(기타)");
-						scanf_s("%d", &iMenu);
+						printf("나가기(1)");
+
+						char cPosition;
+						int iCenterX = 7, iCenterY = 7, iExit = 0, iEvent = 1;
+						// Center
+						gotoXY(iCenterX, iCenterY);
+						printf("*");
+
+						while (1)
+						{
+							if (_kbhit())
+							{
+								gotoXY(iCenterX, iCenterY);
+								printf(" ");
+
+								// 캐릭터 이동
+								cPosition = _getch();
+
+								switch (cPosition)
+								{
+								case 'w': // Up
+								case 'W':
+								case kbUP:
+									iCenterY--;
+									break;
+								case 's': // Down
+								case 'S':
+								case kbDOWN:
+									iCenterY++;
+									break;
+								case 'a': // Left
+								case 'A':
+								case kbLEFT:
+									iCenterX--;
+									break;
+								case 'd': // Right
+								case 'D':
+								case kbRIGHT:
+									iCenterX++;
+									break;
+								case '1': // 나가기
+									iExit = 1;
+
+								}
+
+								// 맵 크기 설정
+								if (iCenterX <= 6)
+								{
+									iCenterX++;
+								}
+								else if (iCenterX >= 49)
+								{
+									iCenterX--;
+								}
+								else if (iCenterY <= 6)
+								{
+									iCenterY++;
+								}
+								else if (iCenterY >= 25)
+								{
+									iCenterY--;
+								}
+								gotoXY(iCenterX, iCenterY);
+								printf("*");
+								Sleep(10);
+							}
+
+							// 현재위치와 map의 이벤트 발생 위치 비교
+							iEvent = GetEventForMap(iCenterX, iCenterY);
+							if (iEvent == 0)
+							{
+								iMenu = 0;
+								break;
+							}
+
+							if (iExit == 1) // 나가기
+							{
+								ClearMap();
+								iMenu = 1;
+								break;
+							}
+						}
+						//scanf_s("%d", &iMenu);
 
 						if (iMenu == 0)		// 이동
 						{
@@ -100,17 +188,23 @@ int main(int argc, char* argv[])
 							int iRandomMove = RPGRandom(10);
 							///////////////////////////////////////////////
 							// 이벤트 발생
-							if (iRandomMove <= 1) // 20%
+							if (iRandomMove < 1) // 20%
 							{
-								printf("금화를 10원 획득\n");
-								printf("\n");
+								DrawScreenLine();
+								ClearTextBox();
+								DrawMap();
+								gotoXY(2, 32);
+								printf("금화를 10원 획득");
 							}
 							///////////////////////////////////////////////
 							// 그냥 이동
 							else if (iRandomMove > 6) // 30%
 							{
-								printf("아무일도 일어나지 않았습니다.\n");
-								printf("\n");
+								DrawScreenLine();
+								ClearTextBox();
+								DrawMap();
+								gotoXY(2, 32);
+								printf("아무일도 일어나지 않았습니다.");
 							}
 							///////////////////////////////////////////////
 							// 전투
@@ -121,27 +215,46 @@ int main(int argc, char* argv[])
 
 								if (iRandomMove == 0)
 								{
-									printf("Mop1을 만났습니다.\n");
+									// 전투 메인 화면
+									DrawScreenLine();
+									ClearMap();
+									gotoXY(30, 15);
+									printf("Mop1 전투 시작");
+
+									ClearTextBox();
+									gotoXY(2, 32);
+									printf("Mop1을 만났습니다.");
 									strMopFight = strMop1;
 								}
 								else if (iRandomMove == 1)
 								{
-									printf("Mop2을 만났습니다.\n");
+									// 전투 메인 화면
+									DrawScreenLine();
+									ClearMap();
+									gotoXY(30, 15);
+									printf("Mop2 전투 시작");
+
+									ClearTextBox();
+									gotoXY(2, 32);
+									printf("Mop2을 만났습니다.");
 									strMopFight = strMop2;
 								}
 								else
 								{
-									printf("Mop3을 만났습니다.\n");
+									// 전투 메인 화면
+									DrawScreenLine();
+									ClearMap();
+									gotoXY(30, 15);
+									printf("Mop3 전투 시작");
+
+									ClearTextBox();
+									gotoXY(2, 32);
+									printf("Mop3을 만났습니다.");
 									strMopFight = strMop3;
 								}
 
 								while (1)
 								{
-									// 전투 메인 화면
-									ClearMainScreen();
-									gotoXY(30, 15);
-									printf("전투 시작");
-
 									// 전투 메뉴 화면
 									ClearMenu();
 									gotoXY(50, 31);
@@ -161,40 +274,63 @@ int main(int argc, char* argv[])
 
 									if (iMenu == 0) 		// 전투
 									{
-										printf("공격\n");
-										printf("\n");
+										//printf("공격\n");
+										//printf("\n");
 
+										ClearTextBox();
+										gotoXY(2, 32);
 										// 주인공 1회 공격
-										printf("주인공이 몬스터를 공격합니다.\n");
-										strMopFight.dHp = AttackAtoB(iHeroAtk, strMopFight.dDef, strMopFight.dHp);
+										printf("주인공이 몬스터를 공격합니다.");
+										strMopFight.dHp = AttackAtoB(iHeroAtk, strMopFight.dDef, strMopFight.dHp, 32);
 
+										gotoXY(2, 35);
 										// 몬스터 1회 반격
-										printf("몬스터가 반격 합니다.\n");
-										iHeroHp = AttackAtoB(strMopFight.dAtk, iHeroDef, iHeroHp);
+										printf("몬스터가 반격 합니다.");
+										iHeroHp = AttackAtoB(strMopFight.dAtk, iHeroDef, iHeroHp, 35);
 									}
 									else if (iMenu == 1)		// 방어
 									{
-										printf("방어\n");
+										//printf("방어\n");
 
+										ClearTextBox();
+										gotoXY(2, 32);
 										// 주인공이 방어(방어력 +2)
-										printf("주인공이 방어 자세를 취합니다.\n");
-										printf("몬스터가 반격 합니다.\n");
-										iHeroHp = AttackAtoB(strMopFight.dAtk, iHeroDef + 2, iHeroHp);
+										printf("주인공이 방어 자세를 취합니다.");
+										gotoXY(2, 34);
+										printf("몬스터가 반격 합니다.");
+										iHeroHp = AttackAtoB(strMopFight.dAtk, iHeroDef + 2, iHeroHp, 34);
 									}
 									else                    // 후퇴
 									{
-										printf("주인공이 후퇴를 시도합니다.\n");
-										printf("몬스터가 반격 합니다.\n");
-										iHeroHp = AttackAtoB(strMopFight.dAtk - 2, iHeroDef, iHeroHp);
+										ClearTextBox();
+										gotoXY(2, 32);
+										printf("주인공이 후퇴를 시도합니다.");
+										gotoXY(2, 34);
+										printf("몬스터가 반격 합니다.");
+										iHeroHp = AttackAtoB(strMopFight.dAtk - 2, iHeroDef, iHeroHp, 34);
 
-										printf("던전으로 이동.\n");
+										ClearMainScreen();
+										//gotoXY(30, 15);
+										//printf("던전");
+										DrawMap();
+
+										ClearTextBox();
+										gotoXY(2, 32);
+										printf("던전으로 이동.");
 										Sleep(2000);
 										system("cls");
 										break;
 									}
 									if (strMopFight.dHp <= 0)
 									{
-										printf("전투에 승리하였습니다.\n");
+										ClearMainScreen();
+										//gotoXY(30, 15);
+										//printf("던전");
+										DrawMap();
+
+										ClearTextBox();
+										gotoXY(2, 32);
+										printf("전투에 승리하였습니다.");
 										break;
 									}
 								}
@@ -202,7 +338,13 @@ int main(int argc, char* argv[])
 						}
 						else                // 나가기
 						{
-							printf("게임 메뉴료 이동.\n");
+							ClearMainScreen();
+							gotoXY(30, 15);
+							printf("게임 메뉴");
+
+							ClearTextBox();
+							gotoXY(2, 32);
+							printf("게임 메뉴로 이동.");
 							break;
 						}
 					}
@@ -210,7 +352,14 @@ int main(int argc, char* argv[])
 				}
 				else               // 나가기 
 				{
-					printf("메인메뉴로 이동.\n");
+					// 메인 화면 
+					ClearMainScreen();
+					gotoXY(30, 15);
+					printf("메인 메뉴");
+
+					ClearTextBox();
+					gotoXY(2, 32);
+					printf("메인메뉴로 이동.");
 					break;
 				}
 			}
@@ -218,7 +367,14 @@ int main(int argc, char* argv[])
 		}
 		else                // 나가기
 		{
-			printf("게임을 종료합니다.\n");
+			// 게임 종료
+			ClearMainScreen();
+			gotoXY(30, 15);
+			printf("종료");
+
+			ClearTextBox();
+			gotoXY(2, 32);
+			printf("게임을 종료합니다.\n\n\n\n");
 			break;
 		}
 	}
