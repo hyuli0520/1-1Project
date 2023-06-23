@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
 
 	int iHeroHp = 100, iHeroAtk = 10, iHeroDef = 5;
 	int iMenu = -1;
+	char cPosition;
+	int iCenterX = 7, iCenterY = 7, iExit = 0, iEvent = 1;
 
 	// 구조체
 	struct Mop strMop1, strMop2, strMop3, strMopFight;
@@ -97,8 +99,6 @@ int main(int argc, char* argv[])
 						gotoXY(50, 33);
 						printf("나가기(1)");
 
-						char cPosition;
-						int iCenterX = 7, iCenterY = 7, iExit = 0, iEvent = 1;
 						// Center
 						gotoXY(iCenterX, iCenterY);
 						printf("*");
