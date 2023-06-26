@@ -182,7 +182,7 @@ int main(int argc, char* argv[])
 						if (iMenu == 0)		// 이동
 						{
 							printf("이동\n");
-							Sleep(2000);
+							Sleep(1000);
 							system("cls");
 
 							int iRandomMove = RPGRandom(10);
@@ -312,13 +312,13 @@ int main(int argc, char* argv[])
 										ClearMainScreen();
 										//gotoXY(30, 15);
 										//printf("던전");
-										DrawMap();
 
 										ClearTextBox();
 										gotoXY(2, 32);
 										printf("던전으로 이동.");
 										Sleep(2000);
 										system("cls");
+										DrawMap();
 										break;
 									}
 									if (strMopFight.dHp <= 0)
