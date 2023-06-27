@@ -56,8 +56,6 @@ int main(int argc, char* argv[])
 		gotoXY(50, 32);
 		printf("새 게임(0)");
 		gotoXY(50, 33);
-		printf("불러오기(1)");
-		gotoXY(50, 34);
 		printf("돌아가기(기타)");
 
 		scanf_s("%d", &iMenu);
@@ -158,6 +156,7 @@ int main(int argc, char* argv[])
 									iCenterY--;
 								}
 								gotoXY(iCenterX, iCenterY);
+								//setColor(lightgreen, lightgreen);
 								printf("*");
 								Sleep(10);
 							}
@@ -167,6 +166,7 @@ int main(int argc, char* argv[])
 							if (iEvent == 0)
 							{
 								iMenu = 0;
+								iCenterX++;
 								break;
 							}
 
@@ -183,6 +183,7 @@ int main(int argc, char* argv[])
 						{
 							printf("이동\n");
 							Sleep(1000);
+
 							system("cls");
 
 							int iRandomMove = RPGRandom(10);
