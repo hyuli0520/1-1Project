@@ -11,7 +11,7 @@
 enum
 {
 	black,
-	blue,
+	blue, 
 	green,
 	cyan,
 	red,

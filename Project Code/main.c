@@ -309,6 +309,7 @@ int main(int argc, char* argv[])
 										gotoXY(2, 34);
 										printf("몬스터가 반격 합니다.");
 										iHeroHp = AttackAtoB(strMopFight.dAtk - 2, iHeroDef, iHeroHp, 34);
+										Sleep(2000);
 
 										ClearMainScreen();
 										//gotoXY(30, 15);
