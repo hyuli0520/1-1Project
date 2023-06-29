@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	int iHeroHp = 100, iHeroAtk = 10, iHeroDef = 5;
 	int iMenu = -1;
 	char cPosition;
-	int iCenterX = 7, iCenterY = 7, iExit = 0, iEvent = 1;
+	int iCenterX = 7, iCenterY = 7, iExit = 0, iEvent = -1;
 
 	// 구조체
 	struct Mop strMop1, strMop2, strMop3, strMopFight;
@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
 
 						// Center
 						gotoXY(iCenterX, iCenterY);
-						printf("*");
+						printf("*"); // Player
 
 						while (1)
 						{
@@ -162,7 +162,8 @@ int main(int argc, char* argv[])
 							}
 
 							// 현재위치와 map의 이벤트 발생 위치 비교
-							iEvent = GetEventForMap(iCenterX, iCenterY);
+							iEvent = GetEventFormMap(iCenterX, iCenterY);
+
 							if (iEvent == 0)
 							{
 								iMenu = 0;
