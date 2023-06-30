@@ -11,7 +11,7 @@
 enum
 {
 	black,
-	blue, 
+	blue,
 	green,
 	cyan,
 	red,
@@ -30,6 +30,8 @@ enum
 
 #endif
 
+int rpg();
+
 int AttackAtoB(int iAtkA, int iDefB, int iHpB, int iCurY);
 int RPGRandom(int iPercent);
 
@@ -41,4 +43,4 @@ void ClearTextBox();
 void DrawScreenLine();
 void DrawMap();
 void ClearMap();
-int GetEventForMap(int iCurrentX, int iCurrentY);
+int GetEventFormMap(int iCurrentX, int iCurrentY);
