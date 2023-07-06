@@ -694,67 +694,67 @@ int store_sell()
 					{
 					case 0:
 						money2 = 0;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 1:
 						money2 = 1000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 2:
 						money2 = 2000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 3:
 						money2 = 3000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 4:
 						money2 = 4000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 5:
 						money2 = 5000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 6:
 						money2 = 6000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 7:
 						money2 = 7000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 8:
 						money2 = 8000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					case 9:
 						money2 = 10000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 						break;
 					default:
 						money2 = 20000;
-						money = money2;
+						money += money2;
 						level = 0;
 						probability = MAX_PROBABILITY;
 
